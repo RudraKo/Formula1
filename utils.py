@@ -108,7 +108,7 @@ def inject_custom_css():
         background_image = f"""
             <style>
             .stApp {{
-                background-image: url("data:image/jpg;base64,{bin_str}");
+                background-image: url("data:image/jpeg;base64,{bin_str}");
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;

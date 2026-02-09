@@ -36,8 +36,11 @@ def load_data():
             19: "+9 Laps"
         }
         
-    except FileNotFoundError:
-        st.error("Data files not found. Run data_prep.py first.")
+    except Exception as e:
+        st.error(f"Error loading data: {str(e)}")
+        # Optional: Print traceback to logs
+        import traceback
+        print(traceback.format_exc())
         return None, None, None
 
     # Process Results Features

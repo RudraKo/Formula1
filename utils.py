@@ -97,45 +97,86 @@ def inject_custom_css():
     st.markdown("""
     <style>
         /* F1 Font Import */
-        @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap');
         
         html, body, [class*="css"]  {
             font-family: 'Titillium Web', sans-serif;
         }
         
+        /* Main Container Gradient */
+        .stApp {
+            background: linear-gradient(135deg, #0E1117 0%, #161A25 100%);
+        }
+        
         /* Headers */
         h1, h2, h3 {
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
             color: #FAFAFA !important;
+            font-weight: 700;
         }
         
         h1 {
             border-bottom: 2px solid #FF1801;
             padding-bottom: 10px;
+            margin-bottom: 30px;
         }
         
         /* Metric Cards */
         div[data-testid="metric-container"] {
-            background-color: #161A25;
+            background-color: rgba(22, 26, 37, 0.9);
             border: 1px solid #333;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            border-left: 5px solid #FF1801;
+            padding: 20px;
+            border-radius: 0px; /* Square edges for tech look */
+            border-left: 3px solid #FF1801;
+            transition: all 0.3s ease;
+        }
+        
+        div[data-testid="metric-container"]:hover {
+            border-color: #FF1801;
+            box-shadow: 0 0 15px rgba(255, 24, 1, 0.1);
         }
         
         /* Sidebar */
         section[data-testid="stSidebar"] {
             background-color: #0E1117;
-            border-right: 1px solid #333;
+            border-right: 1px solid #222;
+        }
+        
+        /* Custom Input Widgets */
+        .stSelectbox > div > div {
+            background-color: #161A25;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 0px;
+        }
+        
+        .stMultiSelect > div > div {
+            background-color: #161A25;
+            border: 1px solid #444;
+            border-radius: 0px;
+        }
+        
+        /* Sliders */
+        .stSlider > div > div > div > div {
+            background-color: #FF1801;
         }
         
         /* Buttons */
         button {
             border-radius: 0px !important;
             text-transform: uppercase;
-            font-weight: bold;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            border: 1px solid #FF1801;
+            background-color: transparent;
+            color: #FF1801;
+            transition: all 0.2s;
+        }
+        
+        button:hover {
+            background-color: #FF1801;
+            color: white;
         }
         
     </style>
@@ -150,10 +191,11 @@ def format_fig(fig, title=None):
         font=dict(family="Titillium Web", color="#FAFAFA"),
         title=dict(
             text=title.upper() if title else None,
-            font=dict(size=20, color="#FF1801")
+            font=dict(size=18, color="#FF1801", family="Titillium Web")
         ),
-        margin=dict(l=20, r=20, t=50, b=20),
-        hovermode="x unified"
+        margin=dict(l=20, r=20, t=60, b=20),
+        hovermode="x unified",
+        modebar=dict(orientation='v', bgcolor='rgba(0,0,0,0)')
     )
     # F1 Color Sequence (Red, White, Grey/Silver)
     fig.update_traces(marker=dict(line=dict(width=0)))

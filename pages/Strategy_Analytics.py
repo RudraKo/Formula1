@@ -2,10 +2,10 @@ import streamlit as st
 import plotly.express as px
 from utils import load_data, get_constructor_pit_stats, inject_custom_css, format_fig
 
-st.set_page_config(page_title="Strategy Analytics", page_icon="🛠️", layout="wide")
+st.set_page_config(page_title="Strategy Analytics", page_icon="charts", layout="wide")
 inject_custom_css()
 
-st.header("🛠️ Strategy & Circuit Intelligence")
+st.title("Strategy & Circuit Intelligence")
 
 results, _, pits = load_data()
 
@@ -13,7 +13,7 @@ if results is not None:
     tab1, tab2 = st.tabs(["Pit Stop Efficiency", "Circuit Overtaking"])
     
     with tab1:
-        st.subheader("Team Pit Stop Performance (2014-2020)")
+        st.subheader("Team Operational Efficiency (2014-2020)")
         
         # Get processed pit data
         pit_stats = get_constructor_pit_stats(pits, results)
@@ -33,11 +33,11 @@ if results is not None:
             x='constructor_name', 
             y='seconds', 
             color='constructor_name',
-            title="Pit Stop Duration Distribution (<10s)",
+            title="Pit Stop Duration Variance (<10s)",
             labels={'seconds': 'Duration (s)'}
         )
         fig_pit.update_layout(showlegend=False)
-        fig_pit = format_fig(fig_pit, "Pit Crew Performance")
+        fig_pit = format_fig(fig_pit, "Pit Crew Latency")
         st.plotly_chart(fig_pit, use_container_width=True)
         
     with tab2:
@@ -62,10 +62,10 @@ if results is not None:
             y='race_name', 
             orientation='h',
             color='overtaking_score',
-            title="Top Circuits for On-Track Action (Avg Position Change)",
+            title="Circuit Overtaking Index (Avg Position Change)",
             labels={'overtaking_score': 'Avg Absolute Position Change'},
             color_continuous_scale='Reds'
         )
         fig_circuit.update_layout(yaxis={'categoryorder':'total ascending'})
-        fig_circuit = format_fig(fig_circuit, "Overtaking Difficulty Index")
+        fig_circuit = format_fig(fig_circuit, "Overtaking Factor")
         st.plotly_chart(fig_circuit, use_container_width=True)

@@ -3,10 +3,10 @@ import plotly.express as px
 import pandas as pd
 from utils import load_data, inject_custom_css, format_fig
 
-st.set_page_config(page_title="Lap Time Trends", page_icon="⏱️", layout="wide")
+st.set_page_config(page_title="Lap Time Trends", page_icon="charts", layout="wide")
 inject_custom_css()
 
-st.header("⏱️ Lap Time Analysis")
+st.title("Lap Time Analysis")
 
 results, laps, _ = load_data()
 
@@ -24,7 +24,7 @@ if results is not None and laps is not None:
     # Get Race ID
     sel_race_id = races_in_year[races_in_year['race_name'] == sel_race_name]['raceId'].values[0]
     
-    st.subheader(f"Pace Analysis: {sel_race_name} {sel_year}")
+    st.subheader(f"Pace Evolution: {sel_race_name} {sel_year}")
     
     # Get Laps for this race
     race_laps = laps[laps['raceId'] == sel_race_id].copy()

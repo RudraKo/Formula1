@@ -3,10 +3,10 @@ import plotly.express as px
 import pandas as pd
 from utils import load_data, inject_custom_css, format_fig
 
-st.set_page_config(page_title="Championship Dynamics", page_icon="⚔️", layout="wide")
+st.set_page_config(page_title="Championship Dynamics", page_icon="charts", layout="wide")
 inject_custom_css()
 
-st.header("⚔️ Championship Dynamics")
+st.title("Championship Dynamics")
 
 results, _, _ = load_data()
 
@@ -15,7 +15,7 @@ if results is not None:
     years = sorted(results['year'].unique(), reverse=True)
     selected_year = st.selectbox("Select Season", years, index=0 if 2021 not in years else years.index(2021))
     
-    st.subheader(f"{selected_year} Title Battle")
+    st.subheader(f"Title Fight Trajectory ({selected_year})")
     
     season_data = results[results['year'] == selected_year].copy()
     
@@ -38,14 +38,14 @@ if results is not None:
         y='cumulative_points', 
         color='driver_name', 
         markers=True,
-        title=f"Points Progression: Top 3 Contenders ({selected_year})",
+        title=f"Points Accumulation: Top 3 Contenders",
         labels={'cumulative_points': 'Total Points', 'round': 'Race Round'}
     )
-    fig_battle = format_fig(fig_battle, "Title Fight Trajectory")
+    fig_battle = format_fig(fig_battle, "Championship Progression")
     st.plotly_chart(fig_battle, use_container_width=True)
     
     # Gap Analysis
-    st.markdown("### Momentum Swings")
+    st.subheader("Momentum Analysis")
     # Pivot for gap calculation if only 2 top drivers
     if len(top_drivers) >= 2:
         pivot = battle_data[battle_data['driverId'].isin(top_drivers[:2])]
@@ -61,11 +61,11 @@ if results is not None:
                 gap_pivot, 
                 x=gap_pivot.index, 
                 y='Gap',
-                title=f"Points Gap: {d1} vs {d2}",
+                title=f"Points Delta: {d1} vs {d2}",
                 color='Gap',
                 color_continuous_scale='RdBu'
             )
-            fig_gap = format_fig(fig_gap, "Points Gap Analysis")
+            fig_gap = format_fig(fig_gap, "Points Delta")
             st.plotly_chart(fig_gap, use_container_width=True)
         except Exception as e:
             st.info("Could not generate gap chart (data shape complexity).")

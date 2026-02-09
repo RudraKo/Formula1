@@ -22,8 +22,9 @@ if results is not None:
         pit_modern = pit_stats[pit_stats['year'] >= 2014]
         
         # Boxplot of durations by team
-        # Filter out outliers > 10s for visual clarity in distribution
-        pit_viz = pit_modern[pit_modern['seconds'] < 10]
+        # Data reflects Total Pit Lane Time (approx 20-25s), not just stationary time.
+        # Utils already filters < 40s.
+        pit_viz = pit_modern
         
         top_teams = pit_viz['constructor_name'].value_counts().head(10).index
         pit_viz_filtered = pit_viz[pit_viz['constructor_name'].isin(top_teams)]
@@ -33,11 +34,11 @@ if results is not None:
             x='constructor_name', 
             y='seconds', 
             color='constructor_name',
-            title="Pit Stop Duration Variance (<10s)",
-            labels={'seconds': 'Duration (s)'}
+            title="Pit Lane Time Distribution (Total Time)",
+            labels={'seconds': 'Total Pit Time (s)'}
         )
         fig_pit.update_layout(showlegend=False)
-        fig_pit = format_fig(fig_pit, "Pit Crew Latency")
+        fig_pit = format_fig(fig_pit, "Pit Lane Efficiency")
         st.plotly_chart(fig_pit, use_container_width=True)
         
     with tab2:

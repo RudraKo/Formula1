@@ -3,7 +3,7 @@ numpy
 matplotlib
 seaborn
 plotly
-streamlit
+streamlit>=1.40.0
 scikit-learn
 kagglehub
 altair<5

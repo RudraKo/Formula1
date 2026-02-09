@@ -39,13 +39,11 @@ f1-championship-analytics/
 │   ├── data_prep.ipynb
 │   ├── driver_analytics.ipynb
 │   └── strategy_analytics.ipynb
-├── dashboard/                     # Streamlit application
-│   ├── Home.py
-│   └── pages/
-│       ├── 1_Driver_Performance.py
-│       ├── 2_Strategy_Analytics.py
-│       ├── 3_Championship_Dynamics.py
-│       └── 4_Lap_Time_Trends.py
+├── pages/                         # Streamlit multi-page app
+│   ├── 1_Driver_Performance.py
+│   ├── 2_Strategy_Analytics.py
+│   ├── 3_Championship_Dynamics.py
+│   └── 4_Lap_Time_Trends.py
 ├── reports/                       # Intelligence reports
 │   ├── driver_intelligence_report.md
 │   └── strategy_intelligence_report.md
@@ -62,6 +60,7 @@ f1-championship-analytics/
 │   ├── data_prep.py
 │   ├── driver_analytics.py
 │   └── strategy_analytics.py
+├── app.py                         # Main Streamlit application
 ├── utils.py                       # Utility functions
 ├── SCHEMA.md                      # Data schema documentation
 ├── requirements.txt               # Python dependencies
@@ -104,7 +103,7 @@ pip install -r requirements.txt
 Launch the interactive Streamlit dashboard:
 
 ```bash
-streamlit run dashboard/Home.py
+streamlit run app.py
 ```
 
 The dashboard will open in your default browser at `http://localhost:8501`

@@ -13,8 +13,8 @@ inject_custom_css()
 st.title("Formula 1 Strategic Intelligence")
 
 st.markdown("""
-<div style="background-color:#161A25; padding:20px; border-radius:0px; border-left:5px solid #FF1801; margin-bottom: 20px;">
-    <h3>Championship Analytics Platform</h3>
+<div style="background-color: rgba(22, 26, 37, 0.8); backdrop-filter: blur(10px); padding:30px; border-radius:20px; border-left:8px solid #FF1801; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+    <h3 style="margin-top:0;">Championship Analytics Platform</h3>
     <p style="color:#FAFAFA; font-size:16px;">
     Advanced telemetry analysis for Formula 1 data (1950-2020). 
     Explore driver efficiency, pit stop strategy, and championship dynamics through interactive dashboards.

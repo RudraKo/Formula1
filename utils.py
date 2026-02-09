@@ -92,8 +92,34 @@ def get_constructor_pit_stats(pits, results):
     
     return pits_clean
 
+import base64
+
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
 def inject_custom_css():
     """Inject F1-themed CSS for Streamlit."""
+    
+    # Load background image
+    try:
+        bin_str = get_base64_of_bin_file("images/f1_abstract_bg.png")
+        background_image = f"""
+            <style>
+            .stApp {{
+                background-image: url("data:image/png;base64,{bin_str}");
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+            }}
+            </style>
+        """
+    except Exception:
+        background_image = "" # Fallback if image missing
+
+    st.markdown(background_image, unsafe_allow_html=True)
+
     st.markdown("""
     <style>
         /* F1 Font Import */
@@ -101,11 +127,6 @@ def inject_custom_css():
         
         html, body, [class*="css"]  {
             font-family: 'Titillium Web', sans-serif;
-        }
-        
-        /* Main Container Gradient */
-        .stApp {
-            background: linear-gradient(135deg, #0E1117 0%, #161A25 100%);
         }
         
         /* Headers */
@@ -117,44 +138,59 @@ def inject_custom_css():
         }
         
         h1 {
-            border-bottom: 2px solid #FF1801;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
+            border-bottom: 3px solid #FF1801; /* Thicker accent */
+            padding-bottom: 15px;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         
-        /* Metric Cards */
+        /* Glassmorphism Metric Cards */
         div[data-testid="metric-container"] {
-            background-color: rgba(22, 26, 37, 0.9);
-            border: 1px solid #333;
-            padding: 20px;
-            border-radius: 0px; /* Square edges for tech look */
-            border-left: 3px solid #FF1801;
+            background-color: rgba(22, 26, 37, 0.7); /* Translucent */
+            backdrop-filter: blur(10px); /* Glass effect */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 20px; /* Rounded Corners */
+            border-left: 5px solid #FF1801;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             transition: all 0.3s ease;
         }
         
         div[data-testid="metric-container"]:hover {
             border-color: #FF1801;
-            box-shadow: 0 0 15px rgba(255, 24, 1, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(255, 24, 1, 0.2);
         }
         
+        /* Chart Containers (Glassmorphism) */
+        /* Target the parent divs of charts to give them cards */
+        div[data-testid="stPlotlyChart"] {
+            background-color: rgba(22, 26, 37, 0.6);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
         /* Sidebar */
         section[data-testid="stSidebar"] {
-            background-color: #0E1117;
+            background-color: rgba(14, 17, 23, 0.95);
             border-right: 1px solid #222;
         }
         
-        /* Custom Input Widgets */
+        /* Custom Input Widgets - Rounded & Aesthetic */
         .stSelectbox > div > div {
-            background-color: #161A25;
+            background-color: rgba(22, 26, 37, 0.8);
             color: white;
             border: 1px solid #444;
-            border-radius: 0px;
+            border-radius: 15px; /* Rounded */
         }
         
         .stMultiSelect > div > div {
-            background-color: #161A25;
+            background-color: rgba(22, 26, 37, 0.8);
             border: 1px solid #444;
-            border-radius: 0px;
+            border-radius: 15px; /* Rounded */
         }
         
         /* Sliders */
@@ -164,19 +200,27 @@ def inject_custom_css():
         
         /* Buttons */
         button {
-            border-radius: 0px !important;
+            border-radius: 25px !important; /* Fully Rounded Caps */
             text-transform: uppercase;
             font-weight: 600;
-            letter-spacing: 0.05em;
-            border: 1px solid #FF1801;
+            letter-spacing: 0.1em;
+            border: 2px solid #FF1801;
             background-color: transparent;
             color: #FF1801;
-            transition: all 0.2s;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
         }
         
         button:hover {
             background-color: #FF1801;
             color: white;
+            box-shadow: 0 0 15px rgba(255, 24, 1, 0.4);
+        }
+        
+        /* Spacing Utilities */
+        .block-container {
+            padding-top: 2rem;
+            padding-bottom: 5rem;
         }
         
     </style>
@@ -191,12 +235,12 @@ def format_fig(fig, title=None):
         font=dict(family="Titillium Web", color="#FAFAFA"),
         title=dict(
             text=title.upper() if title else None,
-            font=dict(size=18, color="#FF1801", family="Titillium Web")
+            font=dict(size=20, color="#FF1801", family="Titillium Web")
         ),
-        margin=dict(l=20, r=20, t=60, b=20),
+        margin=dict(l=40, r=40, t=80, b=40), # More internal spacing
         hovermode="x unified",
         modebar=dict(orientation='v', bgcolor='rgba(0,0,0,0)')
     )
-    # F1 Color Sequence (Red, White, Grey/Silver)
+    # F1 Color Sequence (Red, White, Grey/Silver + Cool Accents)
     fig.update_traces(marker=dict(line=dict(width=0)))
     return fig

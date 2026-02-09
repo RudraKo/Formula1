@@ -91,3 +91,70 @@ def get_constructor_pit_stats(pits, results):
     pits_clean['seconds'] = pits_clean['milliseconds'] / 1000
     
     return pits_clean
+
+def inject_custom_css():
+    """Inject F1-themed CSS for Streamlit."""
+    st.markdown("""
+    <style>
+        /* F1 Font Import */
+        @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap');
+        
+        html, body, [class*="css"]  {
+            font-family: 'Titillium Web', sans-serif;
+        }
+        
+        /* Headers */
+        h1, h2, h3 {
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #FAFAFA !important;
+        }
+        
+        h1 {
+            border-bottom: 2px solid #FF1801;
+            padding-bottom: 10px;
+        }
+        
+        /* Metric Cards */
+        div[data-testid="metric-container"] {
+            background-color: #161A25;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border-left: 5px solid #FF1801;
+        }
+        
+        /* Sidebar */
+        section[data-testid="stSidebar"] {
+            background-color: #0E1117;
+            border-right: 1px solid #333;
+        }
+        
+        /* Buttons */
+        button {
+            border-radius: 0px !important;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        
+    </style>
+    """, unsafe_allow_html=True)
+
+def format_fig(fig, title=None):
+    """Apply consistent F1 dark theme to Plotly charts."""
+    fig.update_layout(
+        template="plotly_dark",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="Titillium Web", color="#FAFAFA"),
+        title=dict(
+            text=title.upper() if title else None,
+            font=dict(size=20, color="#FF1801")
+        ),
+        margin=dict(l=20, r=20, t=50, b=20),
+        hovermode="x unified"
+    )
+    # F1 Color Sequence (Red, White, Grey/Silver)
+    fig.update_traces(marker=dict(line=dict(width=0)))
+    return fig

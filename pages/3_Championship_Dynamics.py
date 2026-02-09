@@ -1,9 +1,10 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-from utils import load_data
+from utils import load_data, inject_custom_css, format_fig
 
-st.set_page_config(page_title="Championship Dynamics", page_icon="⚔️")
+st.set_page_config(page_title="Championship Dynamics", page_icon="⚔️", layout="wide")
+inject_custom_css()
 
 st.header("⚔️ Championship Dynamics")
 
@@ -40,6 +41,7 @@ if results is not None:
         title=f"Points Progression: Top 3 Contenders ({selected_year})",
         labels={'cumulative_points': 'Total Points', 'round': 'Race Round'}
     )
+    fig_battle = format_fig(fig_battle, "Title Fight Trajectory")
     st.plotly_chart(fig_battle, use_container_width=True)
     
     # Gap Analysis
@@ -63,6 +65,7 @@ if results is not None:
                 color='Gap',
                 color_continuous_scale='RdBu'
             )
+            fig_gap = format_fig(fig_gap, "Points Gap Analysis")
             st.plotly_chart(fig_gap, use_container_width=True)
         except Exception as e:
             st.info("Could not generate gap chart (data shape complexity).")

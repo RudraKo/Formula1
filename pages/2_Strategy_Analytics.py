@@ -1,8 +1,9 @@
 import streamlit as st
 import plotly.express as px
-from utils import load_data, get_constructor_pit_stats
+from utils import load_data, get_constructor_pit_stats, inject_custom_css, format_fig
 
-st.set_page_config(page_title="Strategy Analytics", page_icon="🛠️")
+st.set_page_config(page_title="Strategy Analytics", page_icon="🛠️", layout="wide")
+inject_custom_css()
 
 st.header("🛠️ Strategy & Circuit Intelligence")
 
@@ -36,6 +37,7 @@ if results is not None:
             labels={'seconds': 'Duration (s)'}
         )
         fig_pit.update_layout(showlegend=False)
+        fig_pit = format_fig(fig_pit, "Pit Crew Performance")
         st.plotly_chart(fig_pit, use_container_width=True)
         
     with tab2:
@@ -61,7 +63,9 @@ if results is not None:
             orientation='h',
             color='overtaking_score',
             title="Top Circuits for On-Track Action (Avg Position Change)",
-            labels={'overtaking_score': 'Avg Absolute Position Change'}
+            labels={'overtaking_score': 'Avg Absolute Position Change'},
+            color_continuous_scale='Reds'
         )
         fig_circuit.update_layout(yaxis={'categoryorder':'total ascending'})
+        fig_circuit = format_fig(fig_circuit, "Overtaking Difficulty Index")
         st.plotly_chart(fig_circuit, use_container_width=True)

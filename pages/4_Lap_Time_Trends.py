@@ -1,9 +1,10 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-from utils import load_data
+from utils import load_data, inject_custom_css, format_fig
 
-st.set_page_config(page_title="Lap Time Trends", page_icon="⏱️")
+st.set_page_config(page_title="Lap Time Trends", page_icon="⏱️", layout="wide")
+inject_custom_css()
 
 st.header("⏱️ Lap Time Analysis")
 
@@ -62,6 +63,7 @@ if results is not None and laps is not None:
             title=f"Race Pace Evolution (Rolling Avg {window} Laps)",
             labels={'rolling_pace': 'Lap Time (s)', 'lap': 'Lap Number'}
         )
+        fig_pace = format_fig(fig_pace, "Race Pace Strategy")
         st.plotly_chart(fig_pace, use_container_width=True)
     else:
         st.info("Select drivers to generate chart.")

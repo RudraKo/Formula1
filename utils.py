@@ -104,11 +104,11 @@ def inject_custom_css():
     
     # Load background image
     try:
-        bin_str = get_base64_of_bin_file("images/PHOTO-2026-02-09-22-01-06.jpg")
+        bin_str = get_base64_of_bin_file("images/formula14k-1.png")
         background_image = f"""
             <style>
             .stApp {{
-                background-image: url("data:image/jpeg;base64,{bin_str}");
+                background-image: url("data:image/png;base64,{bin_str}");
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;

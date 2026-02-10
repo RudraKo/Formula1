@@ -101,74 +101,40 @@ def get_base64_of_bin_file(bin_file):
 
 def inject_custom_css():
     """Inject F1-themed CSS for Streamlit."""
-    
-    # Load background image
-    try:
-        bin_str = get_base64_of_bin_file("images/formula14k-1.png")
-        background_image = f"""
-            <style>
-            .stApp {{
-                background-image: url("data:image/png;base64,{bin_str}");
-                background-size: cover;
-                background-position: center;
-                background-attachment: fixed;
-            }}
-            </style>
-        """
-    except Exception:
-        background_image = "" # Fallback if image missing
-
-    st.markdown(background_image, unsafe_allow_html=True)
 
     st.markdown("""
     <style>
-        /* Custom Font Imports */
-        @import url('https://fonts.googleapis.com/css2?family=Avega:wght@400;600;700&display=swap');
+        /* F1 Font Import */
         @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap');
         
         html, body, [class*="css"]  {
-            font-family: 'Avega', serif;
+            font-family: 'Titillium Web', sans-serif;
         }
         
-        /* Body Text - Teal Italic Sans-Serif */
-        p, label, span, div:not(h1):not(h2):not(h3) {
-            color: #00D2BE !important;
-            font-style: italic;
-            font-family: sans-serif !important;
-        }
-        
-        /* Headers with Avega Font and Scrim Overlay */
+        /* Headers */
         h1, h2, h3 {
-            font-family: 'Avega', serif !important;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: #FFFFFF !important;
+            color: #FAFAFA !important;
             font-weight: 700;
-            position: relative;
-            padding: 20px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
-            backdrop-filter: blur(5px);
-            border-radius: 10px;
-            margin-bottom: 20px;
         }
         
         h1 {
             border-bottom: 3px solid #FF1801;
-            padding-bottom: 20px;
+            padding-bottom: 15px;
             margin-bottom: 40px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.5));
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         
-        /* Glassmorphism Metric Cards with Enhanced Contrast */
+        /* Glassmorphism Metric Cards */
         div[data-testid="metric-container"] {
-            background-color: rgba(0, 0, 0, 0.85); /* Darker for better contrast */
-            backdrop-filter: blur(15px); /* Stronger blur */
+            background-color: rgba(22, 26, 37, 0.7);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px;
+            padding: 25px;
             border-radius: 20px;
             border-left: 5px solid #FF1801;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             transition: all 0.3s ease;
         }
         
@@ -178,14 +144,14 @@ def inject_custom_css():
             box-shadow: 0 12px 40px 0 rgba(255, 24, 1, 0.2);
         }
         
-        /* Chart Containers with Enhanced Contrast */
+        /* Chart Containers (Glassmorphism) */
         div[data-testid="stPlotlyChart"] {
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            background-color: rgba(22, 26, 37, 0.6);
+            backdrop-filter: blur(5px);
             border-radius: 20px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         /* Sidebar */

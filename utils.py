@@ -105,53 +105,121 @@ def inject_custom_css():
     st.markdown("""
     <style>
         /* F1 Font Import */
-        @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&display=swap');
         
         html, body, [class*="css"]  {
             font-family: 'Titillium Web', sans-serif;
         }
         
-        /* Headers */
+        /* Animated Background Accent */
+        .stApp::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #FF1801 0%, #FF1801 50%, #FFFFFF 50%, #FFFFFF 100%);
+            background-size: 40px 4px;
+            animation: racing-stripe 2s linear infinite;
+            z-index: 999;
+        }
+        
+        @keyframes racing-stripe {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 0; }
+        }
+        
+        /* Headers with Racing Aesthetic */
         h1, h2, h3 {
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             color: #FAFAFA !important;
             font-weight: 700;
+            position: relative;
         }
         
         h1 {
-            border-bottom: 3px solid #FF1801;
+            border-bottom: 4px solid #FF1801;
             padding-bottom: 15px;
             margin-bottom: 40px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 8px rgba(255, 24, 1, 0.3);
+            font-weight: 900;
         }
         
-        /* Glassmorphism Metric Cards */
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: #FFFFFF;
+        }
+        
+        /* Enhanced Metric Cards with Animations */
         div[data-testid="metric-container"] {
-            background-color: rgba(22, 26, 37, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 25px;
-            border-radius: 20px;
-            border-left: 5px solid #FF1801;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(22, 26, 37, 0.9) 0%, rgba(30, 35, 48, 0.8) 100%);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 6px solid #FF1801;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        div[data-testid="metric-container"]::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 24, 1, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        div[data-testid="metric-container"]:hover::before {
+            left: 100%;
         }
         
         div[data-testid="metric-container"]:hover {
             border-color: #FF1801;
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px 0 rgba(255, 24, 1, 0.2);
+            border-left-width: 8px;
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 16px 48px 0 rgba(255, 24, 1, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
         
-        /* Chart Containers (Glassmorphism) */
+        /* Metric Values - Bold Numbers */
+        div[data-testid="stMetricValue"] {
+            font-family: 'Roboto Mono', monospace !important;
+            font-weight: 700 !important;
+            font-size: 2.2rem !important;
+            background: linear-gradient(135deg, #FFFFFF 0%, #FF1801 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Enhanced Chart Containers */
         div[data-testid="stPlotlyChart"] {
-            background-color: rgba(22, 26, 37, 0.6);
-            backdrop-filter: blur(5px);
+            background: linear-gradient(135deg, rgba(22, 26, 37, 0.8) 0%, rgba(18, 22, 33, 0.9) 100%);
+            backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        div[data-testid="stPlotlyChart"]:hover {
+            border-color: rgba(255, 24, 1, 0.3);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4), 0 0 20px rgba(255, 24, 1, 0.1);
         }
 
         /* Sidebar */

@@ -3,7 +3,7 @@ import plotly.express as px
 import pandas as pd
 from utils import load_data, inject_custom_css, format_fig
 
-st.set_page_config(page_title="Lap Time Trends", page_icon="⏱️", layout="wide")
+st.set_page_config(page_title="Lap Time Trends", layout="wide")
 inject_custom_css()
 
 st.title("Lap Time Analysis")
@@ -67,3 +67,54 @@ if results is not None and laps is not None:
         st.plotly_chart(fig_pace, use_container_width=True)
     else:
         st.info("Select drivers to generate chart.")
+    
+    st.markdown("---")
+    
+    # Detailed Analytical Description
+    st.markdown("""
+    ### Lap Time Analysis - Methodology & Insights
+    
+    #### What We Are Doing
+    We perform granular lap-by-lap performance analysis to understand race pace evolution, tire degradation patterns, and strategic timing. This module reveals how drivers manage their pace throughout a race and how strategy decisions impact competitive positioning.
+    
+    #### What We Are Analyzing
+    **Lap-Level Metrics:**
+    - **Raw Lap Times**: Individual lap completion times in milliseconds
+    - **Rolling Average Pace**: Smoothed pace trends using configurable window (1-10 laps)
+    - **Pace Evolution**: How lap times change throughout race distance
+    - **Driver Pace Comparison**: Side-by-side pace analysis for selected drivers
+    - **Outlier Detection**: Identification and filtering of pit stop laps
+    - **Tire Strategy Impact**: Pace changes correlating with pit stop timing
+    
+    #### How We Are Doing It
+    **Analytical Techniques:**
+    1. **Race & Driver Selection**: Choose specific race from any season (1950-2020) and compare multiple drivers
+    2. **Lap Time Conversion**: Transform milliseconds to seconds for readability
+    3. **Rolling Window Smoothing**: Apply moving average (default 3 laps) to reduce noise and reveal trends
+    4. **Outlier Filtering**: Remove pit stop laps (>130% of median) to focus on racing pace
+    5. **Multi-Driver Overlay**: Plot pace traces for different drivers on same chart for direct comparison
+    6. **Time-Series Visualization**: Use line charts to show pace evolution across race distance
+    
+    #### What It Helps In
+    **Strategic Applications:**
+    - **Tire Strategy Validation**: Identify optimal pit stop windows by analyzing pace drop-off
+    - **Pace Management**: Understand tire conservation vs. push strategies
+    - **Overtaking Analysis**: Correlate pace advantages with successful passing maneuvers
+    - **Fuel Load Impact**: Observe pace improvement as fuel burns off during race
+    - **Driver Comparison**: Benchmark race pace between teammates or rivals
+    - **Strategy Simulation**: Model alternative pit stop strategies based on pace data
+    
+    **Key Insights:**
+    - **Downward Pace Trends**: Indicate tire degradation or fuel-saving mode
+    - **Upward Pace Trends**: Show improving pace (lighter fuel load, fresh tires)
+    - **Sudden Pace Drops**: Mark pit stop laps or traffic interference
+    - **Pace Oscillations**: Suggest aggressive push/conserve cycles
+    - **Converging Lines**: Show drivers on similar pace (DRS battles)
+    - **Diverging Lines**: Indicate one driver pulling away or struggling
+    
+    **Typical Patterns:**
+    - **Stint 1**: Fast early laps as drivers push on fresh tires with heavy fuel
+    - **Mid-Stint**: Gradual pace loss as tires degrade
+    - **Post-Pit**: Sudden pace improvement with fresh rubber
+    - **Final Laps**: Either conservation (protecting position) or all-out attack
+    """)

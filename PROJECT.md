@@ -636,7 +636,7 @@ This F1 Strategic Intelligence Platform represents a complete data science proje
 
 ---
 
-**Project Repository**: [Your GitHub Link]  
-**Live Dashboard**: [Your Deployment Link]  
+**Project Repository**: https://github.com/RudraKo/Formula1  
+**Live Dashboard**: https://formula1-aaolmtqkkw4kw2eusbdfav.streamlit.app/  
 **Author**: Punarvashu  
 **Last Updated**: February 2026

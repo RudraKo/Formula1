@@ -3,7 +3,7 @@ import plotly.express as px
 import pandas as pd
 from utils import load_data, inject_custom_css, format_fig
 
-st.set_page_config(page_title="Championship Dynamics", page_icon="charts", layout="wide")
+st.set_page_config(page_title="Championship Dynamics", page_icon="🏆", layout="wide")
 inject_custom_css()
 
 st.title("Championship Dynamics")

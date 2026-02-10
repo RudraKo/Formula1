@@ -3,7 +3,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from utils import load_data, get_driver_stats, inject_custom_css, format_fig
 
-st.set_page_config(page_title="Driver Performance", page_icon="charts", layout="wide")
+st.set_page_config(page_title="Driver Performance", page_icon="👤", layout="wide")
 inject_custom_css()
 
 st.title("Driver Performance Analytics")

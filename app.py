@@ -4,7 +4,7 @@ from utils import load_data, inject_custom_css
 
 st.set_page_config(
     page_title="F1 Analytics Hub",
-    page_icon="charts",
+    page_icon="🏎️",
     layout="wide"
 )
 

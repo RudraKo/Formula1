@@ -2,7 +2,7 @@ import streamlit as st
 import plotly.express as px
 from utils import load_data, get_constructor_pit_stats, inject_custom_css, format_fig
 
-st.set_page_config(page_title="Strategy Analytics", page_icon="charts", layout="wide")
+st.set_page_config(page_title="Strategy Analytics", page_icon="📊", layout="wide")
 inject_custom_css()
 
 st.title("Strategy & Circuit Intelligence")
